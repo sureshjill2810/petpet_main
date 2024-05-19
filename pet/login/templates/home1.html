@@ -1,0 +1,138 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://getbootstrap.com/docs/5.3/assets/css/docs.css" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="{% static 'home/home.css' %}">
+    <title>Home</title>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg bg-body-tertiary" style="font-family: system-ui; color: black; font-weight: 700">
+        <div class="container-fluid" style="margin-top: -8px; background: linear-gradient(-36deg, #5eb9b0, #66f3d9);">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <img src="{% static 'home/t_logo.png' %}" style="height: 70px; width: 54px"/>
+                <ul class="navbar-nav me-auto mb-2 mb-lg-0" style="margin: -5px auto auto auto">
+                    <li class="nav-item" style="color: #ff416c">
+                        <a class="nav-link active" aria-current="page" href="#">Home</a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="location">Location</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="search">Advanced Search</a>
+                    </li>
+                    {% else %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="location">Location</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="search">Advanced Search</a>
+                    </li>
+                    <script>
+                        alert("Please login to use all features");
+                    </script>
+                    {% endif %}
+                </ul>
+
+                <div class="profile">
+                    <div>
+                        {% if user.is_authenticated %}
+                        <div class="dropdown">
+                            <div class="profile-icon" onclick="toggleDropdown()">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" class="bi bi-person-circle" viewBox="0 0 16 16" style="margin: auto 10px -6px 12px">
+                                    <path d="M11 6a3 3 0 1 1-6 0 3 3 0 0 1 6 0"/>
+                                    <path fill-rule="evenodd" d="M0 8a8 8 0 1 1 16 0A8 8 0 0 1 0 8m8-7a7 7 0 0 0-5.468 11.37C3.242 11.226 4.805 10 8 10s4.757 1.225 5.468 2.37A7 7 0 0 0 8 1"/>
+                                </svg>
+                            </div>
+
+                            <div class="dropdown-content" id="dropdown-content">
+                                <p>{{ user.username }}</p>
+                                <a href="{% url 'signout' %}">Sign Out</a>
+                                <a href="#">Update Profile</a>
+                            </div>
+                        </div>
+
+                        {% else %}
+                        <a class="signIn" href="{% url 'signin' %}">Sign In </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="search-container">
+        <input type="text" id="location" placeholder="Location" class="search-input"/>
+        <input type="number" id="rating" placeholder="Rating" class="search-input"/>
+        <input type="date" id="checkin" placeholder="Check-in" class="search-input"/>
+        <input type="date" id="checkout" placeholder="Check-out" class="search-input"/>
+        <button id="search-btn" class="search-btn">Search</button>
+    </div>
+
+    <div id="home-container">
+        <div class="home-heading">
+            <h1>Life is better with a furry friend by your side</h1>
+        </div>
+
+        <div class="home-row">
+            {% for user in users %}
+            <div class="home-card">
+                <div class="home-card-header">
+                    <img src="https://hips.hearstapps.com/hmg-prod/images/dog-puppy-on-garden-royalty-free-image-1586966191.jpg?crop=0.752xw:1.00xh;0.175xw,0&resize=1200:*" alt=""/>
+                </div>
+                <div class="home-card-body">
+                    <ul style="text-align: left">
+                        <li>Owner Name - {{user.first_name}} {{user.last_name}}</li>
+                        <li>Pet Name - {{user.pet_name}}</li>
+                        <li>Location - {{user.place}}</li>
+                        <li>Pet Care Days - 38</li>
+                        <li>Review Score - 9.7</li>
+                        <li>Available Time (if no limit show start date (or today) and no end date)</li>
+                        <li>Descriptive Level 100% ( calculated from the details added in the account details )</li>
+                    </ul>
+                    {% if user.is_authenticated %}
+                    <div class="buttons">
+                        <a href="#" class="btn">Message</a>
+                        <a href="#" class="btn">Reserve Pet Care</a>
+                    </div>
+                    {% else %}
+                    <a class="signIn" href="{% url 'signin' %}">Sign In </a>
+                    {% endif %}
+                </div>
+            </div>
+            {%endfor %}
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hJm2+XNlZB"
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+    crossorigin="anonymous"></script>
+    <script>
+        function toggleDropdown() {
+            var dropdownContent = document.getElementById("dropdown-content");
+            dropdownContent.classList.toggle("show");
+        }
+
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function (event) {
+            if (!event.target.closest(".profile-icon")) {
+                var dropdowns = document.getElementsByClassName("dropdown-content");
+                for (var i = 0; i < dropdowns.length; i++) {
+                    var openDropdown = dropdowns[i];
+                    if (openDropdown.classList.contains("show")) {
+                        openDropdown.classList.remove("show");
+                    }
+                }
+            }
+        };
+    </script>
+</body>
+</html>

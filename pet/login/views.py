@@ -118,4 +118,4 @@ def forgot_password(request):
     return render(request, 'forgot_password.html', {'form': form})
 
 def home(request):
-    return render(request, 'home.html')
+    return render(request, 'home1.html')
