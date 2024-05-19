@@ -1,0 +1,100 @@
+/* signup.css */
+
+body {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    place-items: center;
+    background: -webkit-linear-gradient(left, #278fc6, #42f4fa);
+}
+
+.logo {
+    position: absolute;
+    top: 0px;
+    left: 12%;
+    transform: translateX(-50%);
+    width: 89px;
+    height: auto;
+}
+.container {
+    position: relative;
+    background-color: #ffffff;
+    padding: 76px 49px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    max-width: 401px;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+h2 {
+    margin: 61px auto;
+    text-align: center;
+    padding: 10px 131px;
+    border-radius: 7px;
+    color: #ffffff;
+    background-color: #e156e1;
+    margin-bottom: 30px;
+}
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 95%;
+    padding: 9px 13px;
+    margin: 7px 0;
+    border: 1px solid #dddddd;
+    border-radius: 7px;
+    box-sizing: border-box;
+    transition: border-color 0.3s ease;
+}
+}
+
+input[type="text"]::placeholder,
+input[type="email"]::placeholder,
+input[type="password"]::placeholder {
+    color: #999999;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus {
+    border-color: #007bff;
+}
+
+label {
+    font-weight: bold;
+    display: block; /* Ensure the label is displayed as a block-level element */
+    margin-bottom: 5px;
+}
+
+button[type="submit"] {
+    width: 362px;
+    text-size-adjust: 0px;
+    background-color: #56e0db;
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    padding: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #0056b3;
+}
+
+.error-message {
+    color: red;
+    margin-top: 5px;
+    font-size: 14px;
+}
